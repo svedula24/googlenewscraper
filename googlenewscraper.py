@@ -1,4 +1,3 @@
-
 import requests
 from bs4 import BeautifulSoup
 
@@ -18,19 +17,11 @@ def get_top_news(location):
         if not link.startswith("http"):
             link = base_url + link[2:]
         summary_elem = article.select_one("article > div:last-of-type")
-        if summary_elem:
-            summary = summary_elem.text.strip()
-        else:
-            summary = "No summary available"
-        source_elem = article.select_one(".wEwyrc.AVN2gc.uQIVzc.Sksgp")
-        if source_elem:
-            source = source_elem.text.strip()
-        else:
-            source = "No source available"
+        
         img_elem = article.select_one("img")
         if img_elem:
             img = img_elem["src"]
         else:
             img = "No image available"
-        news[title] = {"link": link, "summary": summary, "source": source, "img": img}
+        news[title] = {"link": link, "img": img}
     return news
